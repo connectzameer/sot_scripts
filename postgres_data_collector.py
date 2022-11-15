@@ -46,14 +46,23 @@ def connect_db(database, host, port, user, password):
         #establishing the connection
         output1= ""+ database + "_postgres.csv"
         print(output1)
-        conn = psycopg2.connect(database=database, user=user, password=password, host=host, port=port)
-        #Creating a cursor object using the cursor() method
-        cursor = conn.cursor()#Executing an MYSQL function using the execute() method
-        cursor.execute("select cobrand_id, name, is_channel,CHANNEL_ID,ENVIRONMENT,DEPLOYMENT_MODE from cobrand where cobrand_status_id=1")
-        # Fetch a single row using fetchone() method.
-        data = cursor.fetchall()
-        data.to_csv(output1)
-        conn.close()
+        conn = None
+        try:
+                conn = psycopg2.connect(database=database, user=user, password=password, host=host, port=port)
+                #Creating a cursor object using the cursor() method
+                cursor = conn.cursor()#Executing an MYSQL function using the execute() method
+                cursor.execute("select cobrand_id, name, is_channel,CHANNEL_ID,ENVIRONMENT,DEPLOYMENT_MODE from cobrand where cobrand_status_id=1")
+                # Fetch a single row using fetchone() method.
+                data = cursor.fetchall()
+                #data.to_csv(output1)
+                conn.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+                print(error)
+        finally:
+                if conn is not None:
+                        conn.close()
+                        print('Database connection closed.')
+
 
 
 # Reading the JSON file
