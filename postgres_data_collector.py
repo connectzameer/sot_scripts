@@ -4,12 +4,11 @@ import os
 import psycopg2
 import csv
 
+########################################################################################################
 parser = argparse.ArgumentParser()
-
 parser.add_argument("-sql", "--sqlfile", help="To Execute the Script, Pass the SQL file path in the argument!", dest="sqlfile")
 parser.add_argument("-json", "--json", help="Pass the JSON (DB List file) configuration file path in the argument!", dest="db_json_list")
 parser.add_argument("-out", "--output", help="Mention the output file path, postgres db will be append in prefix", dest="output")
-
 args = parser.parse_args()
 
 # validating SQL File #
@@ -37,9 +36,9 @@ else:
                 if os.path.getsize(args.db_json_list) == 0:
                         print ("The given DB JSON CONFIG FILE File: \"" + args.db_json_list + "\" is Empty!")
                         exit()
-
 print (args.sqlfile)
 print (args.db_json_list)
+##############################################################################################################
 
 def connect_db(database, host, port, user, password):
         print ("##",database, host, port, user, password)
@@ -57,13 +56,11 @@ def connect_db(database, host, port, user, password):
                 #data.to_csv(output1)
                 conn.close()
         except (Exception, psycopg2.DatabaseError) as error:
-                print(error)
+                print("Error: ", error)
         finally:
                 if conn is not None:
                         conn.close()
-                        print('Database connection closed.')
-
-
+                        print('Database: ' +database + 'connection closed.')
 
 # Reading the JSON file
 with open(args.db_json_list, 'r') as openfile:
