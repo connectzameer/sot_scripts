@@ -1,0 +1,22 @@
+{
+	"environment": "poc",
+	"last_modified_date": "11-10-2022",
+	"database_type": "postgres",
+	"db_list": [
+		{
+			"database": "pocdb04",
+			"host": "ns999-t004-pyr5.cluster-c2tvjovpsffb.us-west-1.rds.amazonaws.com",
+			"port": 5432,
+			"user": "read",
+			"password": "read"
+		},
+		{
+			"database": "pocdb",
+			"host": "ns999-t000-y1hi.cluster-c2tvjovpsffb.us-west-1.rds.amazonaws.com",
+			"port": 5432,
+			"user": "read",
+			"password": "read"
+		}
+	]
+
+}
